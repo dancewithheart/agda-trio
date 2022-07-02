@@ -1,0 +1,3 @@
+name: agda-trio
+depend: standard-library
+include: src/
