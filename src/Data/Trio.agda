@@ -34,22 +34,35 @@ record Sigma3 (A : Set lA) (B : (a : A) -> Set lB) (C : (a : A)(b : B a) -> Set 
 
 -- Dependent Triple A -> (B a, C a)
 -- generalize Pi to 3 types where second and third depends on the first
+-- TODO show DepTrio1 Unit B C ~ B * C
+-- TODO show DepTrio1 A B Unit ~ Pi A B
+-- TODO show DepTrio1 A Unit C ~ Pi A C
 DepTrio1 : (A : Set lA) (B : A -> Set lB) (C : A -> Set lC) -> Set (lA umax lB umax lC)
 DepTrio1 {lA} {lB} {lC} A B C = (a : A) -> B a -> C a
 
 -- TODO zimap
 
+-- TODO generalize DepTrio1 to PiSigma (a : A) -> Sigma(B a -> C B a)
+-- TODO show PiSigma Unit B C ~ Sigma(b:B, C b)
+-- TODO show PiSigma A B Unit ~ Pi A B
+-- TODO show PiSigma A Unit C ~ Pi A C
+
 -- Dependent Triple (A,B) -> C a b
 -- generalize Pi to type where third arguments depends on first and second
+-- TODO show DepTrio2 Unit B C ~ Pi B C
+-- TODO show DepTrio2 A Unit C ~ Pi A C
 DepTrio2 : (A : Set lA) (B : Set lB) (C : (a : A)(b : B) -> Set lC) -> Set (lA umax lB umax lC)
 DepTrio2 {lA} {lB} {lC} A B C = (a : A) -> (b : B) -> C a b
 
 -- TODO nimap
 
+-- TODO generalize DepTrio2 (A,B) -> C a b to SigmaPi : Sigma(A, B a) -> C b a
+-- TODO show SigmaPi Unit B C ~ Pi(b:B, C b)
+-- TODO show SigmaPi A Unit C ~ Pi(a:A, C a)
+
 -- Dependent Triple
--- generalize Pi to 3 types where second depend on first and third depends on first and second
--- DepTrio1:  A -> (B a, C a) generalized to A -> Sigma(B a, C b a)
--- has the same signature as
--- DepTrio2: (A,B) -> C a b generalized to Sigma(A , B a) -> C b a
-DepTrio : (A : Set lA) (B : A -> Set lB) (C : (a : A)(b : B a) -> Set lC) -> Set (lA umax lB umax lC)
-DepTrio {lA} {lB} {lC} A B C = (a : A) -> (b : B a) -> C a b
+-- generalize Pi (a : A) -> (b : B a) to three arguemnts (a : A) -> (b : B a) -> C a b
+-- TODO show DepTrio1 Unit B C ~ Pi B C
+-- TODO show DepTrio1 A Unit C ~ Pi A C
+Pi3 : (A : Set lA) (B : A -> Set lB) (C : (a : A)(b : B a) -> Set lC) -> Set (lA umax lB umax lC)
+Pi3 {lA} {lB} {lC} A B C = (a : A) -> (b : B a) -> C a b
