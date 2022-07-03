@@ -35,3 +35,4 @@ flowchart TB
 Similar work:
 * Bruno Gavranović [bgavran/DependentOpticsIdris2](https://github.com/bgavran/DependentOpticsIdris2/blob/main/src/DependentOptics.idr)
 * Michael Snoyman [snoyberg/trio](https://github.com/snoyberg/trio)
+* possibly related: [ajrouvoet/ternary.agda](https://github.com/ajrouvoet/ternary.agda)
