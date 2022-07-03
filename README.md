@@ -1,7 +1,7 @@
 # agda-trio
 
-Encode in Agda some of the previous ideas:
-* modular approach to Bifunctor/Profunctor hierarchy ([Haskell](https://github.com/lemastero/trifunctors/blob/master/src/Data/UnifyBifunctorProfunctor.hs), [Scala](https://github.com/lemastero/Triglav/tree/master/src/main/scala/Triglav/face2))
+Encoding in Agda some of the previous ideas:
+* modular approach to Bifunctor/Profunctor hierarchy ([Haskell](https://github.com/lemastero/trifunctors/blob/master/src/Data/UnifyBifunctorProfunctor.hs), [Scala](https://github.com/lemastero/Triglav/tree/master/src/main/scala/Triglav/face2)); added to [zio-prelude](https://github.com/zio/zio-prelude/pull/279)
 ```mermaid
 classDiagram
    RightFunctor~F[_,+_]~ <|-- Bifunctor~P[+_,+_]~
@@ -17,10 +17,10 @@ classDiagram
     ) bimap(A => AA, B => BB): P[A,B] => P[AA,BB]
   }
 ```
-* experiments with:
-   * Zifunctor ([Idris](https://github.com/lemastero/Idris-Trifunctors/blob/main/src/Data/Verified/Zifunctor.idr), [Haskell](https://github.com/lemastero/trifunctors/blob/master/src/Data/Zifunctor.hs#L47-L75), [Scala](https://github.com/lemastero/trifunctors/blob/master/src/Data/Zifunctor.hs#L86-L110)),
+* experiments with abstractions with 3 holes:
+   * Zifunctor ([Idris](https://github.com/lemastero/Idris-Trifunctors/blob/main/src/Data/Verified/Zifunctor.idr), [Haskell](https://github.com/lemastero/trifunctors/blob/master/src/Data/Zifunctor.hs#L47-L75), [Scala](https://github.com/lemastero/trifunctors/blob/master/src/Data/Zifunctor.hs#L86-L110), added to [zio-prelude](https://github.com/zio/zio-prelude/pull/304)),
    * Trifunctor ([Idris](https://github.com/lemastero/Idris-Trifunctors/blob/main/src/Data/Verified/Trifunctor.idr), [Scala](https://github.com/lemastero/Triglav/blob/master/src/main/scala/Triglav/face3/Trifunctor.scala)),
-   * Nifunctor ([Idris](https://github.com/lemastero/Idris-Trifunctors/blob/main/src/Data/Verified/Fufunctor.idr), [Haskell](https://github.com/lemastero/trifunctors/blob/master/src/Data/Zifunctor.hs#L86-L110), [Scala](https://github.com/lemastero/Triglav/blob/master/src/main/scala/Triglav/face3/Fnfunctor.scala)) types
+   * Nifunctor ([Idris](https://github.com/lemastero/Idris-Trifunctors/blob/main/src/Data/Verified/Fufunctor.idr), [Haskell](https://github.com/lemastero/trifunctors/blob/master/src/Data/Zifunctor.hs#L86-L110), [Scala](https://github.com/lemastero/Triglav/blob/master/src/main/scala/Triglav/face3/Fnfunctor.scala))
 ```mermaid
 classDiagram
    LeftFunctor~F[_,+_,_]~ <|-- RightBifunctor~F[_,+_,+_]~
@@ -30,9 +30,9 @@ classDiagram
    LeftFunctor <|-- LeftProfunctor~F[-_,+_,_]~
    FirstContravariant <|-- LeftProfunctor
  
-   RightBifunctor <|-- Zivariant~F[-_,+_,+_]~
-   RightProfunctor <|-- Zivariant
-   LeftProfunctor <|-- Zivariant
+   RightBifunctor <|-- Zifunctor~F[-_,+_,+_]~
+   RightProfunctor <|-- Zifunctor
+   LeftProfunctor <|-- Zifunctor
 
   class FirstContravariant {
     ) contramap(EE => E): F[E,A,R] => F[EE,A,R]
@@ -52,7 +52,7 @@ classDiagram
   class RightBifunctor {
     ) bimap(A => AA, R => RR): F[R,A,R] => F[R,AA,RR]
   }
-  class Zivariant {
+  class Zifunctor {
     ) zimap(AA => A, B => BB, C => CC): F[A,B,C] => F[AA,BB,CC]
   }
 ```
@@ -82,7 +82,26 @@ flowchart TB
 * application to optics (previously [encoded in Scala](https://github.com/lemastero/Triglav/blob/master/src/main/scala/Triglav/optics/TrifunctorOptics.scala#L9-L37))
 
 
-Similar work:
+## Related work:
 * Bruno Gavranović [bgavran/DependentOpticsIdris2](https://github.com/bgavran/DependentOpticsIdris2/blob/main/src/DependentOptics.idr)
 * Michael Snoyman [snoyberg/trio](https://github.com/snoyberg/trio)
 * possibly related: [ajrouvoet/ternary.agda](https://github.com/ajrouvoet/ternary.agda)
+
+## Building
+Project can be build using [make](https://www.gnu.org/software/make/):
+
+```sh
+make
+```
+
+or [nix](https://nixos.org/guides/nix-pills/):
+
+```sh
+nix build
+```
+
+Update [nix flakes](https://nixos.wiki/wiki/Flakes):
+
+```sh
+nix flake update
+```
