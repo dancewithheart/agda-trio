@@ -66,3 +66,11 @@ DepTrio2 {lA} {lB} {lC} A B C = (a : A) -> (b : B) -> C a b
 -- TODO show DepTrio1 A Unit C ~ Pi A C
 Pi3 : (A : Set lA) (B : A -> Set lB) (C : (a : A)(b : B a) -> Set lC) -> Set (lA umax lB umax lC)
 Pi3 {lA} {lB} {lC} A B C = (a : A) -> (b : B a) -> C a b
+
+Π-compose : {A : Set lA}
+            {B : A -> Set lB}
+            {C : (a : A)(b : B a) -> Set lC}
+         -> ( f : ( (a : A) -> B a ) )
+         -> ( g : ( (a : A)(b : (B a)) -> C a b ) )
+         -> ( (a : A) -> (C a (f a)) )
+Π-compose {U} {V} {W} {A} {B} {C} f g = \ a -> g a (f a)
